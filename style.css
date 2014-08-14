@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : LessFoodie
 */
 
-/*
+/* What the plugin provides
 Number of Posts
 Display Feature Image
 Display Post Date
@@ -19,3 +19,38 @@ Display Read more link
 Category Dropdown 
 */
 
+.recent-posts{
+    border: 1px solid #76d2c5;
+    border-radius:5px;
+    background:#fff;
+}
+
+.recent-posts h3{
+    font-family:Oxygen;
+    font-weight:300;
+    text-align:center;
+    font-size:25px;
+}
+
+.feat-posts ul{
+    list-style:none;
+    padding: 0px 10px;
+}
+
+.widget-list{
+    border-top: 1px solid #76d2c5;  
+    clear:both;
+}
+
+.widget-list a{
+    color:#76D2C5;
+}
+
+.widget-list a:hover{
+    text-decoration:none;
+    color:blue;
+}
+
+.widget-list p{
+    margin:10px 0px 10px 0px;
+}

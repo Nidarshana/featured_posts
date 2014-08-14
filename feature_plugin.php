@@ -30,13 +30,30 @@ function add_my_stylesheets(){
             $current_views = 0;
         }
         $new_views = $current_views + 1;
-    /*  if($new_views>5)
-   {
-       $new_views=0;
-   }*/
         update_post_meta($post->ID, "mp_views", $new_views);
         return $new_views;
         }
+    }
+    
+    function mp_get_view_count() {
+        global $post;
+        $current_views = get_post_meta($post->ID, "mp_views", true);
+        if(!isset($current_views) OR empty($current_views) OR !is_numeric($current_views) ) {
+            $current_views = 0;
+        }
+        return $current_views;
+    } 
+    function mp_show_views($singular = "", $plural = "", $before = "No. of views: ") {
+        global $post;
+        $current_views = mp_get_view_count();
+        $views_text = $before . $current_views . " ";
+        if ($current_views == 1) {
+            $views_text .= $singular;
+        }
+        else {
+            $views_text .= $plural;
+        }
+        echo $views_text;
     }
     
     function catch_the_image() {
@@ -96,8 +113,7 @@ function add_my_stylesheets(){
     
     function display_views_number() {
         global $count;
-        $count = mp_add_view();
-        echo "$count";
+        mp_show_views();
     }
     
     function display_excerpt(){

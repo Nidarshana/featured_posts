@@ -82,10 +82,10 @@ public function form($instance) {
                 <label for="<?php echo $this->get_field_id('checkbox_var5'); ?>">Check to display Post Excerpt with Read More link</label>
         </p>
         
-<!--         <p>
+       <p>
                 <input class="checkbox" type="checkbox" <?php checked($instance['checkbox_var6'], 'on'); ?> id="<?php echo $this->get_field_id('checkbox_var5'); ?>" name="<?php echo $this->get_field_name('checkbox_var6'); ?>" /> 
                 <label for="<?php echo $this->get_field_id('checkbox_var6'); ?>">Check to display number of views</label>
-        </p>-->
+        </p>
         
         <p>
             <?php $args = array(
@@ -126,14 +126,14 @@ public function update($new_instance,$old_instance){
     $instance['checkbox_var6'] =strip_tags($new_instance['checkbox_var5']);
     
     return $instance;
-}
+}       
 
 public function widget($args, $instance) {
             
 	    $post_count = $instance['post_count'];
             $title = apply_filters('widget_title', $instance['title']);
 		// Display the widget title
-            echo '<div id="recent-posts">';
+            echo '<div class="recent-posts">';
             if ( $title )
                 
                     echo "<h3>$title</h3>";
@@ -149,16 +149,20 @@ public function widget($args, $instance) {
                         )
                     );
                     global $post;
+                    echo'<div class="feat-posts">'; 
                     if($args->have_posts()) { echo "<ul>"; }
                     while ( $args->have_posts() ) : $args->the_post();
                     echo'<li class="widget-list">';
-                    echo '<a href="'.get_permalink($post->ID).'">'.the_title('', '', false).'</a>';
+                    
                     echo "<br>";
             
-                   
+                    echo'<div class="post-img">';
                     if($instance['checkbox_var']){                          
                        display_image();
-                    }         
+                    }   
+                    echo'</div>';
+                    echo'<div class="post-details">';
+                    echo '<a href="'.get_permalink($post->ID).'">'.the_title('', '', false).'</a>';
                     echo "<br>";
                     if($instance['checkbox_var1']){
                         display_date();
@@ -171,6 +175,7 @@ public function widget($args, $instance) {
                     if($instance['checkbox_var3']){
                         display_category();
                     }
+                    echo'</div>';
                     if($instance['checkbox_var4']){
                         display_comment_number();
                     }
@@ -187,7 +192,8 @@ public function widget($args, $instance) {
             echo'</li>';
             endwhile;
             if($args->have_posts()) { echo "</ul>"; }
-            
+            echo'</div>';
+            echo'</div>';
 
     }
 }
