@@ -22,6 +22,23 @@ function add_my_stylesheets(){
     
     add_action('wp_enqueue_scripts','add_my_stylesheets');
     
+    function mp_add_view() {
+        if(is_single()) {
+        global $post;
+        $current_views = get_post_meta($post->ID, "mp_views", true);
+        if(!isset($current_views) OR empty($current_views) OR !is_numeric($current_views) ) {
+            $current_views = 0;
+        }
+        $new_views = $current_views + 1;
+    /*  if($new_views>5)
+   {
+       $new_views=0;
+   }*/
+        update_post_meta($post->ID, "mp_views", $new_views);
+        return $new_views;
+        }
+    }
+    
     function catch_the_image() {
   		global $post, $posts;
   		$first_img = '';
@@ -74,6 +91,12 @@ function add_my_stylesheets(){
     function display_comment_number() {
         global $count;
         $count = comments_number();
+        echo "$count";
+    }
+    
+    function display_views_number() {
+        global $count;
+        $count = mp_add_view();
         echo "$count";
     }
     

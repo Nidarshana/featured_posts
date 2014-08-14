@@ -16,8 +16,13 @@ class Featured_Posts extends WP_Widget {
 <?php
 }
 
-function form($instance) { 
-	$defaults = array( 'title' => __('Popular Posts'), 'post_count' => __('5'),'checkbox_var'=>__('0'),'category'=>__('0'));
+public function form($instance) { 
+	$defaults = array(
+            'title' => __('Popular Posts'), 
+            'post_count' => 5 ,
+            'checkbox_var'=> 0,
+            'category'=> 0,
+            );
 	$instance = wp_parse_args( (array) $instance, $defaults );
 	if ( isset( $instance[ 'title' ] ) ) {
             $title = $instance[ 'title' ];
@@ -37,7 +42,7 @@ function form($instance) {
 		<input class="widefat" id="<?php echo $this->get_field_id('post_count'); ?>" name="<?php echo $this->get_field_name('post_count'); ?>" type="number" ><?php echo $post_count;?>
 	</p>
         
-        <p>
+<!--        <p>
             <input type="radio" 
                    id="<?php echo $this->get_field_id('your_radio'); ?>"
                    name="<?php echo $this->get_field_name('your_radio'); ?>"
@@ -48,7 +53,7 @@ function form($instance) {
                    name="<?php echo $this->get_field_name('your_radio'); ?>"
                    <?php if (isset ($instance['your_radio']) && $instance['your_radio']=="comments") echo "checked";?>
                     value="comments">Sort by comments
-        </p>
+        </p>-->
   
         <p> 
                 <input class="img_check" type="checkbox" <?php checked($instance['checkbox_var'], 'on'); ?> id="<?php echo $this->get_field_id('checkbox_var'); ?>" name="<?php echo $this->get_field_name('checkbox_var'); ?>" /> 
@@ -71,31 +76,20 @@ function form($instance) {
                 <input class="checkbox" type="checkbox" <?php checked($instance['checkbox_var4'], 'on'); ?> id="<?php echo $this->get_field_id('checkbox_var4'); ?>" name="<?php echo $this->get_field_name('checkbox_var4'); ?>" /> 
                 <label for="<?php echo $this->get_field_id('checkbox_var4'); ?>">Check to display Number of Comments</label>
         </p>
+         
         <p>
                 <input class="checkbox" type="checkbox" <?php checked($instance['checkbox_var5'], 'on'); ?> id="<?php echo $this->get_field_id('checkbox_var5'); ?>" name="<?php echo $this->get_field_name('checkbox_var5'); ?>" /> 
                 <label for="<?php echo $this->get_field_id('checkbox_var5'); ?>">Check to display Post Excerpt with Read More link</label>
         </p>
         
+<!--         <p>
+                <input class="checkbox" type="checkbox" <?php checked($instance['checkbox_var6'], 'on'); ?> id="<?php echo $this->get_field_id('checkbox_var5'); ?>" name="<?php echo $this->get_field_name('checkbox_var6'); ?>" /> 
+                <label for="<?php echo $this->get_field_id('checkbox_var6'); ?>">Check to display number of views</label>
+        </p>-->
+        
         <p>
             <?php $args = array(
-                'show_option_all'    => '',
-                'show_option_none'   => '',
-                'orderby'            => 'ID', 
-                'order'              => 'ASC',
-                'show_count'         => 0,
-                'hide_empty'         => 1, 
-                'child_of'           => 0,
-                'exclude'            => '',
-                'echo'               => 1,
-                'selected'           => $instance['category'],
-                'hierarchical'       => 0, 
-                'name'               => 'cat',
-                'id'                 => '',
-                'class'              => 'postform',
-                'depth'              => 0,
-                'tab_index'          => 0,
-                'taxonomy'           => 'category',
-                'hide_if_empty'      => false,
+                'selected'           => $instance['category']
             );
             wp_dropdown_categories( $args );?>
         </p>
@@ -116,10 +110,10 @@ function form($instance) {
         
        
 <?php }
-function update($new_instance,$old_instance){
+public function update($new_instance,$old_instance){
     $instance = $old_instance;
     $instance['title'] = strip_tags( $new_instance['title'] );
-    
+    $instance['category'] = $new_instance['category'];
     $instance['post_count'] = strip_tags( $new_instance['post_count'] );
     $instance['your_radio'] = strip_tags( $new_instance['your_radio'] );
     $instance['checkbox_var'] =strip_tags($new_instance['checkbox_var']);
@@ -129,11 +123,12 @@ function update($new_instance,$old_instance){
     $instance['checkbox_var4'] =strip_tags($new_instance['checkbox_var4']);
     $instance['checkbox_var5'] =strip_tags($new_instance['checkbox_var5']);
     $instance['checkbox_var5'] =strip_tags($new_instance['checkbox_var5']);
+    $instance['checkbox_var6'] =strip_tags($new_instance['checkbox_var5']);
     
     return $instance;
 }
 
-function widget($args, $instance) {
+public function widget($args, $instance) {
             
 	    $post_count = $instance['post_count'];
             $title = apply_filters('widget_title', $instance['title']);
@@ -179,6 +174,11 @@ function widget($args, $instance) {
                     if($instance['checkbox_var4']){
                         display_comment_number();
                     }
+                    
+                    if(isset($instance['checkbox_var6'])){
+                        display_views_number();
+                    }
+                    
                     echo "<br>";
                     if($instance['checkbox_var5']){
                         display_excerpt();
