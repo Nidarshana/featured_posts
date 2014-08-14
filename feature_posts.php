@@ -153,9 +153,7 @@ public function widget($args, $instance) {
                     if($args->have_posts()) { echo "<ul>"; }
                     while ( $args->have_posts() ) : $args->the_post();
                     echo'<li class="widget-list">';
-                    
-                    echo "<br>";
-            
+                    echo'<div class="post-data">';
                     echo'<div class="post-img">';
                     if($instance['checkbox_var']){                          
                        display_image();
@@ -163,31 +161,43 @@ public function widget($args, $instance) {
                     echo'</div>';
                     echo'<div class="post-details">';
                     echo '<a href="'.get_permalink($post->ID).'">'.the_title('', '', false).'</a>';
-                    echo "<br>";
+                    echo'<p>';
                     if($instance['checkbox_var1']){
                         display_date();
                     }
-                    echo "<br>";
+                    echo'</p>';
+                    echo'<p>';
                     if($instance['checkbox_var2']){
                         display_author();
                     }
-                    echo "<br>";
+                    echo'</p>';
+                    
                     if($instance['checkbox_var3']){
                         display_category();
                     }
+                    
                     echo'</div>';
+                    echo'</div>';
+                    echo'<div class="post_stats">';
+                    echo'<p>';
                     if($instance['checkbox_var4']){
                         display_comment_number();
                     }
-                    
+                    echo'</p>';
+                    echo'<p>';
                     if(isset($instance['checkbox_var6'])){
                         display_views_number();
                     }
-                    
-                    echo "<br>";
+                    echo'</p>';
+                    echo'</div>';
+                    echo'<div class="post_excerpt">';
+                    echo'<p>';
                     if($instance['checkbox_var5']){
                         display_excerpt();
                     }
+                    echo'</p>';
+                    echo'</div>';
+                    
          
             echo'</li>';
             endwhile;

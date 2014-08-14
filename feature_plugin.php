@@ -86,13 +86,13 @@ function add_my_stylesheets(){
     }
 
     function display_date(){
-        echo "<strong>Date:  </strong>";
+        echo "Date:";
         echo the_date('','','',TRUE);
     }
     
     function display_author(){
         global $post;
-        echo "<strong>Author:  </strong>";
+        echo " Author:";
         $author_id= $post->post_author;
         echo get_the_author_meta('first_name',$author_id);
         echo " ";
@@ -100,9 +100,10 @@ function add_my_stylesheets(){
     }
     
     function display_category(){
-        echo "<strong>Category:</strong>";
-        echo "<br>";
+        echo'<p>';
+        echo "Category:";
         echo get_the_category_list();
+        echo'</p>';
     }
     
     function display_comment_number() {
@@ -117,8 +118,8 @@ function add_my_stylesheets(){
     }
     
     function display_excerpt(){
-        echo "<strong>Excerpt:</strong>";
-        echo "<br>";
+        echo " Excerpt:";
+        
         the_excerpt();
     } 
     
@@ -135,30 +136,7 @@ function add_my_stylesheets(){
    
     add_filter('excerpt_more', 'new_excerpt_more');
     
-    function show_category(){
-        $args = array(
-            'show_option_all'    => '',
-            'show_option_none'   => '',
-            'orderby'            => 'ID', 
-            'order'              => 'ASC',
-            'show_count'         => 0,
-            'hide_empty'         => 1, 
-            'child_of'           => 0,
-            'exclude'            => '',
-            'echo'               => 1,
-            'selected'           => 0,
-            'hierarchical'       => 0, 
-            'name'               => 'cat',
-            'id'                 => '',
-            'class'              => 'postform',
-            'depth'              => 0,
-            'tab_index'          => 0,
-            'taxonomy'           => 'category',
-            'hide_if_empty'      => false,
-    );
-        
-        wp_dropdown_categories( $args );
-    }
+    
     
     
     
