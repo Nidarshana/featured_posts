@@ -39,7 +39,7 @@ public function form($instance) {
         
 	<p>
 		<label for="<?php echo $this->get_field_id('post_count'); ?>"><?php _e('Top Posts:', 'wp_widget_plugin'); ?></label>
-		<input class="widefat" id="<?php echo $this->get_field_id('post_count'); ?>" name="<?php echo $this->get_field_name('post_count'); ?>" type="number" ><?php echo $post_count;?>
+		<input class="widefat" id="<?php echo $this->get_field_id('post_count'); ?>" name="<?php echo $this->get_field_name('post_count'); ?>" type="number" value="<?php echo $post_count;?>" />
 	</p>
         
 <!--        <p>
@@ -160,8 +160,10 @@ public function widget($args, $instance) {
                     }   
                     echo'</div>';
                     echo'<div class="post-details">';
+                    echo'<div class="post-title">';
                     echo '<a href="'.get_permalink($post->ID).'">'.the_title('', '', false).'</a>';
                     echo'<p>';
+                    echo'</div>';
                     if($instance['checkbox_var1']){
                         display_date();
                     }
