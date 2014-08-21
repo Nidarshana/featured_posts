@@ -3,18 +3,23 @@
 class Featured_Posts extends WP_Widget {
 	// Controller
 	function __construct() {
-	$widget_ops = array('classname' => 'post_plugin', 'description' => __('Widget to display post details', 'wp_post_plugin'));
+	$widget_ops = array('classname' => 'post_plugin', 'description' => __('Widget to display post details', 'wp_widget_plugin'));
 	$control_ops = array('width' => 300, 'height' => 300);
-	parent::WP_Widget(false, $name = __('Featured_Posts', 'wp_post_plugin'), $widget_ops, $control_ops );
+	parent::WP_Widget(false, $name = __('Featured_Posts', 'wp_widget_plugin'), $widget_ops, $control_ops );
 
 }
 
 public function form($instance) { 
 	$defaults = array(
             'title' => __('Popular Posts'), 
-            'post_count' => 5 ,
-            'check_image'=> 0,
-            'category'=> 0,
+            'post_count' => __(5) ,
+            'check_image'=>__(0),
+            'check_date'=> __(0),
+            'check_author'=>  __(0),
+            'check_category'=> __(0),
+            'check_comments'=> __(0),
+            'check_views'=> __(0),
+            'post_excerpt'=> __(0),
             );
 	$instance = wp_parse_args( (array) $instance, $defaults );
 	if ( isset( $instance[ 'title' ] ) ) {
@@ -36,8 +41,7 @@ public function form($instance) {
 	</p>
         
         <p> 
-                <input class="img_check" type="checkbox" <?php checked($instance['feat_image'], 'on'); ?> id="<?php echo $this->get_field_id('feat_image'); ?>" name="<?php echo $this->get_field_name('feat_image'); ?>" /> 
-                <input class="img_check" type="checkbox" <?php checked($instance['feat_image'], 'on'); ?> id="<?php echo $this->get_field_id('feat_image'); ?>" name="<?php echo $this->get_field_name('feat_image'); ?>" /> 
+                <input class="img_check" type="checkbox" <?php checked($instance['check_image'], 'on'); ?> id="<?php echo $this->get_field_id('check_image'); ?>" name="<?php echo $this->get_field_name('check_image'); ?>" /> 
                 <label for="<?php echo $this->get_field_id('check_image'); ?>">Check to display post thumbnail</label>
         </p>
      
